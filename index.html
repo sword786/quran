@@ -123,7 +123,6 @@
   <h1>Quranic Recitations</h1>
 
   <audio id="audioPlayer" controls autoplay></audio>
-  </audio>
 
   <div class="playlist">
     <h2>Select a Surah to Listen</h2>
@@ -233,49 +232,48 @@
       { name: "Surah An-Nas", src: "downloaded_mp3s/114.mp3" }
     ];
 
-    let currentTrack = 0;
-  const audio = document.getElementById('audioPlayer');
+let currentTrack = 0;
+const audio = document.getElementById('audioPlayer');
 
-  function playTrack(index) {
-    audio.src = playlist[index].src;
-    audio.play();
+function playTrack(index) {
+  audio.src = playlist[index].src;
+  audio.play();
+}
+
+audio.addEventListener('ended', function() {
+  currentTrack++;
+  if (currentTrack >= playlist.length) {
+    currentTrack = 0; // Loop back
   }
-
-  audio.addEventListener('ended', function() {
-    currentTrack++;
-    if (currentTrack >= playlist.length) {
-      currentTrack = 0; // Loop back to the first track
-    }
-    playTrack(currentTrack);
-  });
-
-  // Start the first track
   playTrack(currentTrack);
-  
-    const audioElement = document.getElementById("audio");
-    const volumeBoost = document.getElementById("volumeBoost");
-    const boostValue = document.getElementById("boostValue");
+});
 
-    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-    const source = audioContext.createMediaElementSource(audioElement);
-    const gainNode = audioContext.createGain();
+// Start first track
+playTrack(currentTrack);
 
-    source.connect(gainNode);
-    gainNode.connect(audioContext.destination);
+// Volume booster
+const volumeBoost = document.getElementById("volumeBoost");
+const boostValue = document.getElementById("boostValue");
+const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+const source = audioContext.createMediaElementSource(audio);
+const gainNode = audioContext.createGain();
 
-    volumeBoost.addEventListener("input", () => {
-      const gain = parseFloat(volumeBoost.value);
-      gainNode.gain.value = gain;
-      boostValue.textContent = gain.toFixed(1) + "x";
-    });
+source.connect(gainNode);
+gainNode.connect(audioContext.destination);
 
-    // Start audio context on user interaction
-    document.body.addEventListener("click", () => {
-      if (audioContext.state === 'suspended') {
-        audioContext.resume();
-      }
-    });
-  </script>
+volumeBoost.addEventListener("input", () => {
+  const gain = parseFloat(volumeBoost.value);
+  gainNode.gain.value = gain;
+  boostValue.textContent = gain.toFixed(1) + "x";
+});
+
+// Unlock AudioContext
+document.body.addEventListener("click", () => {
+  if (audioContext.state === 'suspended') {
+    audioContext.resume();
+  }
+});
+</script>
 
 </body>
 </html>
