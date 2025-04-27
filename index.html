@@ -122,8 +122,7 @@
 
   <h1>Quranic Recitations</h1>
 
-  <audio id="audioPlayer" controls autoplay loop>
-    <source id="audioSource" src="downloaded_mp3s/085.mp3" type="audio/mp3">
+  <audio id="audioPlayer" controls autoplay></audio>
     Your browser does not support the audio element.
   </audio>
 
@@ -229,28 +228,24 @@
       { name: "Surah An-Nas", src: "downloaded_mp3s/114.mp3" }
     ];
 
-    let currentIndex = 0;
-    const audioPlayer = document.getElementById("audioPlayer");
-    const audioSource = document.getElementById("audioSource");
+    let currentTrack = 0;
+  const audio = document.getElementById('audioPlayer');
 
-    function changeSurah(index) {
-      audioSource.src = playlist[index].src;
-      audioPlayer.load();  // Reload the audio player with the new source
-      audioPlayer.play();  // Play the new audio
-      currentIndex = index;
+  function playTrack(index) {
+    audio.src = playlist[index].src;
+    audio.play();
+  }
+
+  audio.addEventListener('ended', function() {
+    currentTrack++;
+    if (currentTrack >= playlist.length) {
+      currentTrack = 0; // Loop back to the first track
     }
+    playTrack(currentTrack);
+  });
 
-    // Automatically play the next Surah when the current one ends
-    audioPlayer.addEventListener('ended', function() {
-      currentIndex++;
-      if (currentIndex >= playlist.length) {
-        currentIndex = 0; // loop back to the start
-      }
-      changeSurah(currentIndex);
-    });
-
-    // Start playing the first Surah
-    changeSurah(0);
+  // Start the first track
+  playTrack(currentTrack);
   </script>
 
 </body>
