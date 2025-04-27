@@ -240,6 +240,11 @@ function playTrack(index) {
   audio.play();
 }
 
+function changeSurah(index) {
+  currentTrack = index;
+  playTrack(currentTrack);
+}
+    
 audio.addEventListener('ended', function() {
   currentTrack++;
   if (currentTrack >= playlist.length) {
@@ -265,7 +270,7 @@ volumeBoost.addEventListener("input", () => {
   const gain = parseFloat(volumeBoost.value);
   gainNode.gain.value = gain;
   boostValue.textContent = gain.toFixed(1) + "x";
-});
+});    
 </script>
 
 </body>
