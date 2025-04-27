@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Quranic Recitations - Playlist & Download</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f2f6f9;
+      text-align: center;
+      padding: 30px;
+    }
+    h1 {
+      color: #0d6efd;
+      margin-bottom: 20px;
+    }
+    #currentSurah {
+      margin-bottom: 20px;
+      font-size: 20px;
+      color: #333;
+    }
+    audio {
+      width: 90%;
+      max-width: 400px;
+      margin-bottom: 20px;
+      outline: none;
+    }
+    .playlist {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 30px;
+      gap: 10px;
+    }
+    .playlist button {
+      background-color: #ffffff;
+      border: 2px solid #0d6efd;
+      color: #0d6efd;
+      padding: 10px 20px;
+      font-size: 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      width: 250px;
+      transition: background-color 0.3s, color 0.3s;
+    }
+    .playlist button:hover {
+      background-color: #0d6efd;
+      color: white;
+    }
+    .download-link {
+      display: block;
+      margin-top: 10px;
+      font-size: 14px;
+      color: #0d6efd;
+      text-decoration: none;
+    }
+    footer {
+      margin-top: 50px;
+      font-size: 14px;
+      color: #888;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>📖 Quranic Recitations</h1>
+  <div id="currentSurah">Loading...</div>
+
+  <audio id="audioPlayer" controls autoplay></audio>
+
+  <div class="playlist" id="playlist"></div>
+
+  <footer>
+    Listening to the Quran is a healing for the soul. 🌙
+  </footer>
+
+  <script>
+    const playlist = [
+      { name: "Surah Al-Fatiha", src: "audio/al-fatiha.mp3" },
+      { name: "Surah Al-Ikhlas", src: "audio/al-ikhlas.mp3" },
+      { name: "Surah Al-Falaq", src: "audio/al-falaq.mp3" },
+      { name: "Surah An-Naas", src: "audio/an-naas.mp3" }
+      // Add more Surahs if you want
+    ];
+
+    let currentIndex = 0;
+    const audioPlayer = document.getElementById('audioPlayer');
+    const currentSurah = document.getElementById('currentSurah');
+    const playlistDiv = document.getElementById('playlist');
+
+    function loadSurah(index) {
+      currentIndex = index;
+      audioPlayer.src = playlist[index].src;
+      currentSurah.textContent = playlist[index].name;
+      audioPlayer.play();
+    }
+
+    // Create playlist buttons dynamically
+    playlist.forEach((surah, index) => {
+      const button = document.createElement('button');
+      button.textContent = surah.name;
+      button.onclick = () => loadSurah(index);
+
+      const download = document.createElement('a');
+      download.href = surah.src;
+      download.download = surah.name + '.mp3';
+      download.className = 'download-link';
+      download.textContent = "⬇️ Download";
+
+      const container = document.createElement('div');
+      container.appendChild(button);
+      container.appendChild(download);
+
+      playlistDiv.appendChild(container);
+    });
+
+    audioPlayer.addEventListener('ended', () => {
+      currentIndex++;
+      if (currentIndex >= playlist.length) {
+        currentIndex = 0; // loop to first Surah
+      }
+      loadSurah(currentIndex);
+    });
+
+    // Start the first Surah
+    loadSurah(currentIndex);
+  </script>
+
+</body>
+</html>
