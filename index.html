@@ -230,18 +230,18 @@
     ];
 
     let currentIndex = 0;
+    const audioPlayer = document.getElementById("audioPlayer");
+    const audioSource = document.getElementById("audioSource");
 
     function changeSurah(index) {
-      const player = document.getElementById("audioPlayer");
-      const source = document.getElementById("audioSource");
-      source.src = playlist[index].src;
-      player.load();
-      player.play();
+      audioSource.src = playlist[index].src;
+      audioPlayer.load();  // Reload the audio player with the new source
+      audioPlayer.play();  // Play the new audio
       currentIndex = index;
     }
 
     // Automatically play the next Surah when the current one ends
-    document.getElementById("audioPlayer").addEventListener('ended', function() {
+    audioPlayer.addEventListener('ended', function() {
       currentIndex++;
       if (currentIndex >= playlist.length) {
         currentIndex = 0; // loop back to the start
