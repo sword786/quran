@@ -2,129 +2,240 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Quranic Recitations - Playlist & Download</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quranic Recitations</title>
   <style>
     body {
-      font-family: 'Arial', sans-serif;
-      background-color: #f2f6f9;
-      text-align: center;
-      padding: 30px;
-    }
-    h1 {
-      color: #0d6efd;
-      margin-bottom: 20px;
-    }
-    #currentSurah {
-      margin-bottom: 20px;
-      font-size: 20px;
-      color: #333;
-    }
-    audio {
-      width: 90%;
-      max-width: 400px;
-      margin-bottom: 20px;
-      outline: none;
-    }
-    .playlist {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f8f9fa;
+      height: 100vh;
+      overflow: hidden;
+      position: relative;
       display: flex;
       flex-direction: column;
+      justify-content: center;
       align-items: center;
-      margin-top: 30px;
-      gap: 10px;
+      text-align: center;
+      color: #4CAF50;
     }
+
+    h1 {
+      color: #2e7d32;
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+      text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .playlist {
+      margin: 20px 0;
+    }
+
     .playlist button {
-      background-color: #ffffff;
-      border: 2px solid #0d6efd;
-      color: #0d6efd;
-      padding: 10px 20px;
+      margin: 5px;
+      padding: 10px 15px;
       font-size: 16px;
-      border-radius: 8px;
       cursor: pointer;
-      width: 250px;
-      transition: background-color 0.3s, color 0.3s;
-    }
-    .playlist button:hover {
-      background-color: #0d6efd;
+      background-color: #4CAF50;
       color: white;
+      border: none;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
     }
-    .download-link {
-      display: block;
-      margin-top: 10px;
-      font-size: 14px;
-      color: #0d6efd;
+
+    .playlist button:hover {
+      background-color: #45a049;
+    }
+
+    .download-btn {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #2196F3;
+      color: white;
       text-decoration: none;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
     }
-    footer {
-      margin-top: 50px;
-      font-size: 14px;
-      color: #888;
+
+    .download-btn:hover {
+      background-color: #0b7dda;
     }
+
+    /* Moving colorful shapes */
+    .shape {
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0.5;
+      animation: moveShapes 10s infinite ease-in-out;
+    }
+
+    .shape:nth-child(1) {
+      width: 200px;
+      height: 200px;
+      background: linear-gradient(45deg, #ff4d4d, #ff9900);
+      top: 10%;
+      left: 10%;
+      animation-duration: 12s;
+    }
+
+    .shape:nth-child(2) {
+      width: 300px;
+      height: 300px;
+      background: linear-gradient(45deg, #33cc33, #66ccff);
+      top: 30%;
+      left: 50%;
+      animation-duration: 15s;
+    }
+
+    .shape:nth-child(3) {
+      width: 250px;
+      height: 250px;
+      background: linear-gradient(45deg, #ff66cc, #ffcc00);
+      top: 60%;
+      left: 80%;
+      animation-duration: 18s;
+    }
+
+    @keyframes moveShapes {
+      0% {
+        transform: translate(0, 0);
+      }
+      25% {
+        transform: translate(100px, 100px);
+      }
+      50% {
+        transform: translate(200px, -50px);
+      }
+      75% {
+        transform: translate(-150px, 200px);
+      }
+      100% {
+        transform: translate(0, 0);
+      }
+    }
+
   </style>
 </head>
 <body>
 
-  <h1>📖 Quranic Recitations</h1>
-  <div id="currentSurah">Loading...</div>
+  <h1>Quranic Recitations</h1>
 
-  <audio id="audioPlayer" controls autoplay></audio>
+  <audio id="audioPlayer" controls loop autoplay>
+    <source id="audioSource" src="downloaded_mp3s/085.mp3" type="audio/mp3">
+    Your browser does not support the audio element.
+  </audio>
 
-  <div class="playlist" id="playlist"></div>
+  <div class="playlist">
+    <h2>Select a Surah to Listen</h2>
+    <button onclick="changeSurah(0)">Surah Al-Buruj</button>
+    <button onclick="changeSurah(1)">Surah At-Tariq</button>
+    <button onclick="changeSurah(2)">Surah Al-A'la</button>
+    <button onclick="changeSurah(3)">Surah Al-Ghashiyah</button>
+    <button onclick="changeSurah(4)">Surah Al-Fajr</button>
+    <button onclick="changeSurah(5)">Surah Al-Balad</button>
+    <button onclick="changeSurah(6)">Surah Ash-Shams</button>
+    <button onclick="changeSurah(7)">Surah Al-Lail</button>
+    <button onclick="changeSurah(8)">Surah Ad-Duha</button>
+    <button onclick="changeSurah(9)">Surah Ash-Sharh</button>
+    <button onclick="changeSurah(10)">Surah At-Tin</button>
+    <button onclick="changeSurah(11)">Surah Al-Alaq</button>
+    <button onclick="changeSurah(12)">Surah Al-Qadr</button>
+    <button onclick="changeSurah(13)">Surah Al-Bayyina</button>
+    <button onclick="changeSurah(14)">Surah Az-Zalzalah</button>
+    <button onclick="changeSurah(15)">Surah Al-Adiyat</button>
+    <button onclick="changeSurah(16)">Surah Al-Qari'ah</button>
+    <button onclick="changeSurah(17)">Surah At-Takathur</button>
+    <button onclick="changeSurah(18)">Surah Al-Asr</button>
+    <button onclick="changeSurah(19)">Surah Al-Humazah</button>
+    <button onclick="changeSurah(20)">Surah Al-Fil</button>
+    <button onclick="changeSurah(21)">Surah Quraysh</button>
+    <button onclick="changeSurah(22)">Surah Al-Ma'un</button>
+    <button onclick="changeSurah(23)">Surah Al-Kawthar</button>
+    <button onclick="changeSurah(24)">Surah Al-Kafirun</button>
+    <button onclick="changeSurah(25)">Surah An-Nasr</button>
+    <button onclick="changeSurah(26)">Surah Al-Masad</button>
+    <button onclick="changeSurah(27)">Surah Al-Ikhlas</button>
+    <button onclick="changeSurah(28)">Surah Al-Falaq</button>
+    <button onclick="changeSurah(29)">Surah An-Nas</button>
+  </div>
 
-  <footer>
-    Listening to the Quran is a healing for the soul. 🌙
-  </footer>
+  <div class="download">
+    <h2>Download Surah</h2>
+    <a href="downloaded_mp3s/085.mp3" class="download-btn" download>Download Surah Al-Buruj</a>
+    <a href="downloaded_mp3s/086.mp3" class="download-btn" download>Download Surah At-Tariq</a>
+    <a href="downloaded_mp3s/087.mp3" class="download-btn" download>Download Surah Al-A'la</a>
+    <a href="downloaded_mp3s/088.mp3" class="download-btn" download>Download Surah Al-Ghashiyah</a>
+    <a href="downloaded_mp3s/089.mp3" class="download-btn" download>Download Surah Al-Fajr</a>
+    <a href="downloaded_mp3s/090.mp3" class="download-btn" download>Download Surah Al-Balad</a>
+    <a href="downloaded_mp3s/091.mp3" class="download-btn" download>Download Surah Ash-Shams</a>
+    <a href="downloaded_mp3s/092.mp3" class="download-btn" download>Download Surah Al-Lail</a>
+    <a href="downloaded_mp3s/093.mp3" class="download-btn" download>Download Surah Ad-Duha</a>
+    <a href="downloaded_mp3s/094.mp3" class="download-btn" download>Download Surah Ash-Sharh</a>
+    <a href="downloaded_mp3s/095.mp3" class="download-btn" download>Download Surah At-Tin</a>
+    <a href="downloaded_mp3s/096.mp3" class="download-btn" download>Download Surah Al-Alaq</a>
+    <a href="downloaded_mp3s/097.mp3" class="download-btn" download>Download Surah Al-Qadr</a>
+    <a href="downloaded_mp3s/098.mp3" class="download-btn" download>Download Surah Al-Bayyina</a>
+    <a href="downloaded_mp3s/099.mp3" class="download-btn" download>Download Surah Az-Zalzalah</a>
+    <a href="downloaded_mp3s/100.mp3" class="download-btn" download>Download Surah Al-Adiyat</a>
+    <a href="downloaded_mp3s/101.mp3" class="download-btn" download>Download Surah Al-Qari'ah</a>
+    <a href="downloaded_mp3s/102.mp3" class="download-btn" download>Download Surah At-Takathur</a>
+    <a href="downloaded_mp3s/103.mp3" class="download-btn" download>Download Surah Al-Asr</a>
+    <a href="downloaded_mp3s/104.mp3" class="download-btn" download>Download Surah Al-Humazah</a>
+    <a href="downloaded_mp3s/105.mp3" class="download-btn" download>Download Surah Al-Fil</a>
+    <a href="downloaded_mp3s/106.mp3" class="download-btn" download>Download Surah Quraysh</a>
+    <a href="downloaded_mp3s/107.mp3" class="download-btn" download>Download Surah Al-Ma'un</a>
+    <a href="downloaded_mp3s/108.mp3" class="download-btn" download>Download Surah Al-Kawthar</a>
+    <a href="downloaded_mp3s/109.mp3" class="download-btn" download>Download Surah Al-Kafirun</a>
+    <a href="downloaded_mp3s/110.mp3" class="download-btn" download>Download Surah An-Nasr</a>
+    <a href="downloaded_mp3s/111.mp3" class="download-btn" download>Download Surah Al-Masad</a>
+    <a href="downloaded_mp3s/112.mp3" class="download-btn" download>Download Surah Al-Ikhlas</a>
+    <a href="downloaded_mp3s/113.mp3" class="download-btn" download>Download Surah Al-Falaq</a>
+    <a href="downloaded_mp3s/114.mp3" class="download-btn" download>Download Surah An-Nas</a>
+  </div>
 
   <script>
     const playlist = [
-      { name: "Surah Al-Fatiha", src: "audio/al-fatiha.mp3" },
-      { name: "Surah Al-Ikhlas", src: "audio/al-ikhlas.mp3" },
-      { name: "Surah Al-Falaq", src: "audio/al-falaq.mp3" },
-      { name: "Surah An-Naas", src: "audio/an-naas.mp3" }
-      // Add more Surahs if you want
+      { name: "Surah Al-Buruj", src: "downloaded_mp3s/085.mp3" },
+      { name: "Surah At-Tariq", src: "downloaded_mp3s/086.mp3" },
+      { name: "Surah Al-A'la", src: "downloaded_mp3s/087.mp3" },
+      { name: "Surah Al-Ghashiyah", src: "downloaded_mp3s/088.mp3" },
+      { name: "Surah Al-Fajr", src: "downloaded_mp3s/089.mp3" },
+      { name: "Surah Al-Balad", src: "downloaded_mp3s/090.mp3" },
+      { name: "Surah Ash-Shams", src: "downloaded_mp3s/091.mp3" },
+      { name: "Surah Al-Lail", src: "downloaded_mp3s/092.mp3" },
+      { name: "Surah Ad-Duha", src: "downloaded_mp3s/093.mp3" },
+      { name: "Surah Ash-Sharh", src: "downloaded_mp3s/094.mp3" },
+      { name: "Surah At-Tin", src: "downloaded_mp3s/095.mp3" },
+      { name: "Surah Al-Alaq", src: "downloaded_mp3s/096.mp3" },
+      { name: "Surah Al-Qadr", src: "downloaded_mp3s/097.mp3" },
+      { name: "Surah Al-Bayyina", src: "downloaded_mp3s/098.mp3" },
+      { name: "Surah Az-Zalzalah", src: "downloaded_mp3s/099.mp3" },
+      { name: "Surah Al-Adiyat", src: "downloaded_mp3s/100.mp3" },
+      { name: "Surah Al-Qari'ah", src: "downloaded_mp3s/101.mp3" },
+      { name: "Surah At-Takathur", src: "downloaded_mp3s/102.mp3" },
+      { name: "Surah Al-Asr", src: "downloaded_mp3s/103.mp3" },
+      { name: "Surah Al-Humazah", src: "downloaded_mp3s/104.mp3" },
+      { name: "Surah Al-Fil", src: "downloaded_mp3s/105.mp3" },
+      { name: "Surah Quraysh", src: "downloaded_mp3s/106.mp3" },
+      { name: "Surah Al-Ma'un", src: "downloaded_mp3s/107.mp3" },
+      { name: "Surah Al-Kawthar", src: "downloaded_mp3s/108.mp3" },
+      { name: "Surah Al-Kafirun", src: "downloaded_mp3s/109.mp3" },
+      { name: "Surah An-Nasr", src: "downloaded_mp3s/110.mp3" },
+      { name: "Surah Al-Masad", src: "downloaded_mp3s/111.mp3" },
+      { name: "Surah Al-Ikhlas", src: "downloaded_mp3s/112.mp3" },
+      { name: "Surah Al-Falaq", src: "downloaded_mp3s/113.mp3" },
+      { name: "Surah An-Nas", src: "downloaded_mp3s/114.mp3" }
     ];
 
-    let currentIndex = 0;
-    const audioPlayer = document.getElementById('audioPlayer');
-    const currentSurah = document.getElementById('currentSurah');
-    const playlistDiv = document.getElementById('playlist');
-
-    function loadSurah(index) {
-      currentIndex = index;
-      audioPlayer.src = playlist[index].src;
-      currentSurah.textContent = playlist[index].name;
-      audioPlayer.play();
+    function changeSurah(index) {
+      const player = document.getElementById("audioPlayer");
+      const source = document.getElementById("audioSource");
+      source.src = playlist[index].src;
+      player.load();
+      player.play();
     }
-
-    // Create playlist buttons dynamically
-    playlist.forEach((surah, index) => {
-      const button = document.createElement('button');
-      button.textContent = surah.name;
-      button.onclick = () => loadSurah(index);
-
-      const download = document.createElement('a');
-      download.href = surah.src;
-      download.download = surah.name + '.mp3';
-      download.className = 'download-link';
-      download.textContent = "⬇️ Download";
-
-      const container = document.createElement('div');
-      container.appendChild(button);
-      container.appendChild(download);
-
-      playlistDiv.appendChild(container);
-    });
-
-    audioPlayer.addEventListener('ended', () => {
-      currentIndex++;
-      if (currentIndex >= playlist.length) {
-        currentIndex = 0; // loop to first Surah
-      }
-      loadSurah(currentIndex);
-    });
-
-    // Start the first Surah
-    loadSurah(currentIndex);
   </script>
 
 </body>
